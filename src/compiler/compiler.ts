@@ -142,7 +142,7 @@ export namespace TypeCompiler {
     for (const propertyKey of propertyKeys) {
       const propertySchema = schema.properties[propertyKey]
       if (schema.required && schema.required.includes(propertyKey)) {
-        yield* Visit(propertySchema, `${value}.${propertyKey}`)
+        yield* Visit(propertySchema, `${value}['${propertyKey}']`)
       } else {
         const expression = CreateExpression(propertySchema, `${value}.${propertyKey}`)
         yield `(${value}.${propertyKey} === undefined ? true : (${expression}))`

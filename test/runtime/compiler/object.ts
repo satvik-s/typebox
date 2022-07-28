@@ -44,6 +44,23 @@ describe('type/compiler/Object', () => {
     })
   })
 
+  it('Should validate with correct property values when key has hyphen (-)', () => {
+    const T = Type.Object({
+      'a-with-hypen': Type.Number(),
+      b: Type.String(),
+      c: Type.Boolean(),
+      d: Type.Array(Type.Number()),
+      e: Type.Object({ x: Type.Number(), y: Type.Number() }),
+    })
+    ok(T, {
+      'a-with-hypen': 10,
+      b: 'hello',
+      c: true,
+      d: [1, 2, 3],
+      e: { x: 10, y: 20 },
+    })
+  })
+
   it('Should not validate with incorrect property values', () => {
     const T = Type.Object({
       a: Type.Number(),
